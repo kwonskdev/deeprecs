@@ -189,7 +189,7 @@ class AutoEncoder(BaseRecommender):
         with torch.no_grad():
             for X, _ in pred_loader:
                 pred = self(X).numpy()
-                preds.append(pred)
+                preds.extend(pred)
         preds = torch.Tensor(np.array(preds))
 
         return preds

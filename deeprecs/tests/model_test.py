@@ -37,9 +37,7 @@ def test_ml100k(model: BaseRecommender):
     test_loader = DataLoader(test, batch_size=len(test))
 
     model.fit(train_loader, epochs=1)
-    # TODO: reshape 하지 않고, test랑 형태 맞출 수 있는 방법 찾기
-    #       batch_size 1일 때, pred -> (93, 1=batch_size, 1682) test -> (93, 1682)
-    pred = model.predict(test_loader).reshape(-1, 1682)
+    pred = model.predict(test_loader)
     pred = np.clip(pred, 1, 5)
 
     rmse = RMSELoss()(test.y, pred)
